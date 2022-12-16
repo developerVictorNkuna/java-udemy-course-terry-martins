@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- peopledb-web\src\main\resources\static\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js -->
+    
+    <link rel ="stylesheet" th:href="/@{/peopledb-web\src\main\resources\static\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.css}" />
+  <meta charset="UTF-8">
+  <script th:src="/@{/peopledb-web\src\main\resources\static\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js}"></script>
+  <title></title>
+</head>
+<body>
+<!--bootstrap based on 12 rows and 12 columns -->
+<div class="col-8 md-8 col-sm-12 mc-auto0 mt-5 my-5">
+    <form>
+        <table class="table table-bordered">
+            <h2>People List</h2>
+            <thead>
+            <tr>
+
+                <th scope="col">Select</th>
+                <th scope="col">ID</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">First Name</th>
+                <th scope="col">DOB</th>
+                <th scope="col" class="d-sm-none md-table-cell">Email</th>
+
+                <th scope="col">Salary</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="'${#lists.isEmpty(people)}'">
+                <td clospan="6" class="text-center"> No Data</td>
+            </tr>
+            <tr th:each="person : ${people}">
+                <!-- <td><input type="checkbox" name ="selections" th:value="${person.id}"/></td> -->
+                <th scope="row" th:text="${person.id}">1</th>
+                <td th:text="${person.lastName}">Mark</td>
+                <td th:text="${person.firstName}">otto</td>
+                <td th:text="${{person.dob}}">@mdo</td>
+                <td th:text="${person.email}" class="d-sm-none md-table-cell">@mdo</td>
+                <td th:text="${{person.salary}}">@mdo</td>
+            </tr>
+            <tr th:remove="all">
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <br>
+            </tr>
+            <tr th:remove="all">
+                <th scope="row">3</th>
+                <td colpsan="2">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-danger mb-5">Delete</button>
+    </form>
+
+
+    <h2>Person Form</h2>
+      <form th:object="${person}" method="post" novalodate>
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label><br>
+                <input type="text" class="form-control" id="firstName"  th:field="*{firstName}" th:errorclass="is-invalid" aria-describedby="firstName" />
+                <div id="validationFirstName" class="invalid-feedback" th:errors="*{firstName}">
+                    Please choose a lastname
+                </div>
+              </div>
+            <br>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">LastName</label><br>
+              <input type="text" class="form-control" id="lastName"th:field="*{lastName}"  th:errorsclass="ïs-invalid" aria-describedby="lastName"/>
+                <div id="validationLastName" class="invalid-feedback" th:errors="*{lastName}">
+                    Please choose a lastname
+                </div>
+            </div>
+
+            <br>
+            <div class="mb-3">
+              <label for="dob" class="form-label">DOB</label><br>
+              <input type="date" class="form-control" id="dob" th:field="*{dob}"  th:errorsclass="is=-invalid" aria-describedby="" />
+                <div id="validationDob" class="invalid-feedback" th:errors="*{dob}">
+                    Please choose a date of birth
+                </div>
+            </div>
+
+            <br>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label><br>
+              <input type="type" class="form-control" id="email" th:field="*{email}" th:errorsclass="is-invalid" />
+                <div id="validationEmail" class="invalid-feedback" th:errors="*{email}">
+                    Please choose an Email
+                </div>
+            </div>
+             <br>
+            <div class="mb-3">
+              <label for="salary" class="form-control">Salary</label><br>
+              <input type="text" class="form-control" id="salary" th:fielder="*{salary}" th:errorsclass="is-invalid"/>
+                <div id="validationSalary" class="invalid-feedback" th:errors="*{email}">
+                    Salary cannot be empty
+                </div>
+            </div>
+          <br>
+          <div class="mb-3">
+<!--              <label for="submit" class="form-label"></label><br>-->
+              <button type="submit" class="form-control" id="submit">Save Person</button>
+          </div>
+
+      </form>
+</div>
+
+
+
+</body>
+</html>
